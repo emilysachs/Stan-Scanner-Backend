@@ -10,6 +10,10 @@ import { generateAccessToken, respond, authenticate } from '../middleware/authMi
 export default ({config, db}) => {
   let api = Router();
 
+  api.get('/test', (req, res) => {
+    res.json({message: "testing 123"});
+  })
+
   // '/v1/account'
   api.post('/register', (req, res) => {
     Account.register(new Account({
