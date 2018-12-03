@@ -18,7 +18,7 @@ let generateAccessToken = (req, res, next) => {
 
 let respond = (req, res) => {
   res.status(200).json({
-    user: req.user.username,
+    username: req.user.username,
     token: req.token
   });
 }
