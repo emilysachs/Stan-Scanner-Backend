@@ -9,10 +9,13 @@ let Account = new Schema({
     type: { type: String, default: 'Point' },
     coordinates: [Number]
   },
+  display_name: String,
   fandoms: Array,
   distance: String,
   twitter: String,
-  approved: [{ type: Schema.Types.ObjectId, ref: 'Account' }]
+  approved: Array,
+  following: Boolean,
+  mutuals: Boolean
 });
 
 Account.plugin(passportLocalMongoose);

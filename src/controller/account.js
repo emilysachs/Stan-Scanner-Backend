@@ -94,6 +94,22 @@ api.put('/addFandom/:fandom', (req, res) => {
   });
 });
 
+api.post('/updateDisplayName', (req, res) => {
+  Account.findById(req.user._id, (err, user) => {
+    if (err) {
+      res.send(err);
+    }
+    console.log(user);
+    user.display_name = req.body.name;
+    user.save(err => {
+      if (err) {
+        res.send(err);
+      }
+      res.json({message: "user display name updated", name: user.display_name});
+    });
+  });
+});
+
 // '/v1/account/:id' - Update
 api.put('/updateLocation/:latitude/:longitude', (req, res) => {
   Account.findById(req.user._id, (err, user) => {
@@ -171,11 +187,30 @@ api.get('/sayHi/:id', (req,res) => {
   }
 })
 
+api.get('/approve/:username', (req,res) => {
+  Account.findById(req.user._id, (err, user) => {
+    if(err){
+      res.send(err);
+    }
+    console.log(user);
+    Account.findOne({username: req.params.username}, (err, otherUser) => {
+      user.approved.push(otherUser._id.toString());
+      user.save(err => {
+        if (err) {
+          res.send(err);
+        }
+        res.json({message: "user approved updated", user: user});
+      });
+    });
+  })
+})
+
 
 // '/v1/account/nearby/:dist'
 api.get('/nearby/:user/:dist?', (req, res) => {
     var userObj = JSON.parse(decodeURIComponent(req.params.user));
     var fandoms = userObj.fandoms;
+    var approved = userObj.approved;
     var last_known_location = userObj.last_known_location;
     var dist = 160.9344;
     if(req.params.dist != 'undefined'){
@@ -207,8 +242,17 @@ api.get('/nearby/:user/:dist?', (req, res) => {
       }
 
       for (let fan of users){
+        var mut1 = false;
+        var mut2 = false;
+        if(fan.approved.includes(userObj._id.toString())){
+          mut1 = true;
+        }
+        if(userObj.approved.includes(fan._id.toString())){
+          mut2 = true;
+        }
+        fan.following = mut2;
+        fan.mutuals = mut1 && mut2;
         var distance = Math.round(haversineDistance(userObj.last_known_location.coordinates[1], userObj.last_known_location.coordinates[0], fan.last_known_location.coordinates[1], fan.last_known_location.coordinates[0]) / 1000 * 0.62137119);
-        console.log(distance);
         fan.distance = distance;
         fan.last_known_location = null;
         console.log(fan);
