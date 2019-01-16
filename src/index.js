@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import passport from './passport';
 const LocalStrategy = require('passport-local').Strategy;
+require('dotenv').config()
 
 import config from './config';
 import routes from './routes';

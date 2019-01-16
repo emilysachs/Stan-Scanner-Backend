@@ -10,11 +10,16 @@ let router = express();
 
 //connect to db
 initializeDb(db => {
+  router.use(function(req, res, next) {
+    console.log("pre middleware");
+    next();
+  });
 
   // middleware
   router.use(middleware({config, db}));
 
   router.use(function(req, res, next) {
+    console.log("made it through middleware");
     res.header('Access-Control-Allow-Credentials', true);
     res.header('Access-Control-Allow-Origin', req.headers.origin);
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');

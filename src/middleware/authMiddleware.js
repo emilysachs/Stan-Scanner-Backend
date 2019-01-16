@@ -17,6 +17,7 @@ let generateAccessToken = (req, res, next) => {
 }
 
 let respond = (req, res) => {
+  console.log("trying to go here");
   res.status(200).json({
     username: req.user.username,
     token: req.token
