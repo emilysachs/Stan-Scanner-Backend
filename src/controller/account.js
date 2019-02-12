@@ -274,7 +274,7 @@ api.get('/auth/twitter/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     console.log("successful auth");
-    res.redirect('http://localhost:3000/');
+    res.redirect('https://stanscanner.com/');
   });
 
   return api;
