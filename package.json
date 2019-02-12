@@ -4,7 +4,7 @@
   "description": "Stan Scanner Backend",
   "main": "dist",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
+    "dev": "export NODE_ENV=development && nodemon -w src --exec \"babel-node src --presets es2015,stage-0\"",
     "build": "babel src -s -D -d dist --presets es2015,stage-0",
     "start": "NODE_ENV=production pm2 start dist",
     "prestart": "npm run -s build",

@@ -12,6 +12,8 @@ let router = express();
 initializeDb(db => {
   router.use(function(req, res, next) {
     console.log("pre middleware");
+    console.log(process.env.NODE_ENV);
+    console.log(process.env.REACT_APP_API_URL +'/v1/account/auth/twitter/callback');
     next();
   });
 

@@ -152,7 +152,7 @@ api.get('/me/:dist?', (req, res) => {
   console.log(req.user);
   console.log("user id");
   console.log(req.user._id);
-  res.redirect(REACT_APP_API_URL + '/v1/account/load/' + req.user._id + "/" + req.params.dist);
+  res.redirect(process.env.REACT_APP_API_URL + '/v1/account/load/' + req.user._id + "/" + req.params.dist);
 
 });
 
@@ -173,7 +173,7 @@ api.get('/load/:id/:dist?', (req,res) => {
       res.send(err);
     }
     var userObj = encodeURIComponent(JSON.stringify(user));
-    res.redirect(REACT_APP_API_URL + '/v1/account/nearby/' + userObj + "/" + req.params.dist);
+    res.redirect(process.env.REACT_APP_API_URL + '/v1/account/nearby/' + userObj + "/" + req.params.dist);
   })
 })
 

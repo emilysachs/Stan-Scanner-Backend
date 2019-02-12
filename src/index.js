@@ -6,7 +6,15 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import passport from './passport';
 const LocalStrategy = require('passport-local').Strategy;
-require('dotenv').config()
+
+
+if (process.env.NODE_ENV !== 'production') {
+  	require('dotenv').load();
+} else {
+	process.env.REACT_APP_URL = 'https://stanscanner.com';
+	process.env.REACT_APP_API_URL = 'https://stanscanner.com/api';
+	process.env.REACT_APP_CALLBACK = 'https://stanscanner.com/api/v1/account/auth/twitter/callback';
+}
 
 import config from './config';
 import routes from './routes';
