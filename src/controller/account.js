@@ -152,7 +152,7 @@ api.get('/me/:dist?', (req, res) => {
   console.log(req.user);
   console.log("user id");
   console.log(req.user._id);
-  res.redirect('https://stanscanner.com/api/v1/account/load/' + req.user._id + "/" + req.params.dist); // change to environment variable
+  res.redirect('http://localhost:3005/v1/account/load/' + req.user._id + "/" + req.params.dist); // change to environment variable
 
 });
 
@@ -173,7 +173,7 @@ api.get('/load/:id/:dist?', (req,res) => {
       res.send(err);
     }
     var userObj = encodeURIComponent(JSON.stringify(user));
-    res.redirect('https://stanscanner.com/api/v1/account/nearby/' + userObj + "/" + req.params.dist); // change to environment variable
+    res.redirect('http://localhost:3005/v1/account/nearby/' + userObj + "/" + req.params.dist); // change to environment variable
   })
 })
 
@@ -274,7 +274,7 @@ api.get('/auth/twitter/callback',
   function(req, res) {
     // Successful authentication, redirect home.
     console.log("successful auth");
-    res.redirect('https://stanscanner.com/'); // change to environment variable
+    res.redirect('http://localhost:3000'); // change to environment variable
   });
 
   return api;
