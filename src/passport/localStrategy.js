@@ -8,12 +8,12 @@ const strategy = new LocalStrategy(
 	function(username, password, done) {
 		Account.findOne({ username: username }, (err, user) => {
 			if (err) {
-				return done(err)
+				return done(err);
 			}
 			if (!user) {
-				return done(null, false, { message: 'Incorrect username' })
+				return done(null, false, { message: 'Incorrect username' });
 			}
-			return done(null, user)
+			return done(null, user);
 		})
 	}
 )

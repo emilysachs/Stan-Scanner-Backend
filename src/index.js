@@ -7,15 +7,6 @@ import mongoose from 'mongoose';
 import passport from './passport';
 const LocalStrategy = require('passport-local').Strategy;
 
-
-if (process.env.NODE_ENV !== 'production') {
-  	require('dotenv').load();
-} else {
-	process.env.REACT_APP_URL = 'https://stanscanner.com';
-	process.env.REACT_APP_API_URL = 'https://stanscanner.com/api';
-	process.env.REACT_APP_CALLBACK = 'https://stanscanner.com/api/v1/account/auth/twitter/callback';
-}
-
 import config from './config';
 import routes from './routes';
 
@@ -26,7 +17,7 @@ app.server = http.createServer(app);
 // parse application/json
 app.use(
   session({
-    secret: 'i-luv-bts', //pick a random string to make the hash that is generated secure
+    secret: 'sup3r s3cr3t c0d3', //pick a random string to make the hash that is generated secure
     resave: false, //required
     saveUninitialized: false //required
   })

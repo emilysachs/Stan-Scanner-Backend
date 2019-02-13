@@ -4,6 +4,7 @@ import Account from '../model/account';
 import bodyParser from 'body-parser';
 import passport from '../passport';
 import config from '../config';
+import urls from '../urls.js';
 
 import { generateAccessToken, respond, authenticate } from '../middleware/authMiddleware';
 
@@ -70,7 +71,7 @@ api.get('/data', (req, res, next) => {
         if(err){
           res.send(err);
         }
-        console.log("found");
+        console.log('found');
         console.log(user);
         res.json(user);
       })
@@ -148,11 +149,11 @@ api.get('/logout', authenticate, (req, res) => {
 // '/v1/'
 api.get('/me/:dist?', (req, res) => {
   // res.status(200).json(req.user);
-  console.log("user");
+  console.log('user');
   console.log(req.user);
-  console.log("user id");
+  console.log('user id');
   console.log(req.user._id);
-  res.redirect('http://localhost:3005/v1/account/load/' + req.user._id + "/" + req.params.dist); // change to environment variable
+  res.redirect(urls.apiUrl + '/v1/account/load/' + req.user._id + '/' + req.params.dist); // change to environment variable
 
 });
 
@@ -173,7 +174,7 @@ api.get('/load/:id/:dist?', (req,res) => {
       res.send(err);
     }
     var userObj = encodeURIComponent(JSON.stringify(user));
-    res.redirect('http://localhost:3005/v1/account/nearby/' + userObj + "/" + req.params.dist); // change to environment variable
+    res.redirect(urls.apiUrl + '/v1/account/nearby/' + userObj + '/' + req.params.dist); // change to environment variable
   })
 })
 
@@ -273,8 +274,8 @@ api.get('/auth/twitter/callback',
   passport.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    console.log("successful auth");
-    res.redirect('http://localhost:3000'); // change to environment variable
+    console.log('successful auth');
+    res.redirect(urls.appUrl); // change to environment variable
   });
 
   return api;
